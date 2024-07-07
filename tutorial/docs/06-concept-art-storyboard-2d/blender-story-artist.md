@@ -1,0 +1,24 @@
+# Blender Story Artist
+- [Features](<https://www.blender.org/features/story-artist/>)
+    - Drawing directly in a 3D viewport.
+    - Combining the power of 2D and 3D.
+    - Full Animation Support with Onion Skinning.
+    - Layers & Colors for Stroke and Fill.
+    - Sculpt brush strokes & Parent to 3D objects.
+    - Grease Pencil is a particular type of Blender object that allow you to draw in the 3D space. You can use it to make traditional 2D animation, cut-out animation, motion graphics or use it as storyboard tool among other things.
+    - Grease Pencil object has three main basic components: points, edit lines and strokes.
+- Workspace
+    - Grease Pencil Object
+        - Structure
+        - Primitives
+    - Modes
+        - Draw
+        - Sculpt
+        - Edit
+        - Weight Paint
+    - Visual Effects
+    - Modifiers
+    - Materials
+    - Animation
+        - Multiframe Editing
+        - Onion Skinning

@@ -1,0 +1,32 @@
+## Meshes
+- https://wiki.blender.org/wiki/Source/Objects/Mesh
+- Data Structures:
+    - Blender uses two main data structures for meshes:
+        - Mesh:
+            - The main data structure associated with the ID_ME data-block type.
+            - Focuses on performance with many elements.
+        - BMesh:
+            - Edit mode data structure that prioritizes implementation of small topology-changing operations.
+- Meshes use data structures oriented around a struct of arrays paradigm.
+- One idea behind that design is to decrease the amount of memory accessed in hot loops that generally only deal with a few data elements at a time.
+- It also allows using generic algorithms that aren't necessarily only designed for mesh.
+- For more background on the SoA paradigm in meshes, see the design task.
+- Lazily Calculated Caches
+    - In order to defer calculation of some runtime data until it's actually needed without duplicating work, there are a few lazily calculated caches stored on meshes.
+    - Some examples are:
+        - Bounds: (BKE_mesh_minmax) The min and max position of the mesh
+        - Vertex Normals: (Mesh.vert_normals()) The normal of every vertex. The same as the surrounding face normals mixed together, weighted by the corner angle.
+        - Face Normals: (Mesh.poly_normals()) The normal direction of each face according to its winding direction.
+        - Loose Edges: (Mesh.loose_edges()) Whether each edge is loose, and the total number of loose edges.
+        - When a mesh is changed, these caches need to be removed or tagged dirty. Generally this is possible with functions like BKE_mesh_tag_coords_changed.
+        - Meshes support all generic attribute types.
+- Elements of a Mesh Structure:
+    - edges (linhas de limite)
+    - faces
+    - vertex
+    - loops
+- As a best practice, all manipulation of a mesh structure should be done using Euler Operators.
+    - This would be beneficial because the Euler functions would benefit from more extensive testing, becoming very stable, and thus increasing the stability of the BMesh tools that rely on them.
+- However, currently many of the BMesh operators edit mesh structure directly instead of using these Euler Operators.  It should be a post-merge goal to convert all BMesh operators to use Euler functions, potentially adding extra Euler functions if necessary.
+- As part of the original design, BMesh would be capable of handling multiple boundaries for a single face, which would allow for holes in faces. This has become a non-goal of the first BMesh feature merge, as we have chosen instead to stabilize the existing BMesh feature set to prepare for the first BMesh merge.
+- 1. Weiler, K.J. : The Radial Edge Structure: A Topological Representation for Non-Manifold Geometric Modeling. in Geometric Modeling for CAD Applications, Springer Verlag, May 1986.

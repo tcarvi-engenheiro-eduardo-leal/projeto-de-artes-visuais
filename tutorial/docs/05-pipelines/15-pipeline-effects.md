@@ -1,0 +1,3 @@
+# Effects
+- Motion Tracking
+- Masking
