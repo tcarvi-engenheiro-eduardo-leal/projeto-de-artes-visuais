@@ -1,2 +1,2 @@
-# blender-artes-visuais
-Tutorias sobre blender
+# projeto-de-artes-visuais
+Tutorias sobre artes visuais, com blender
